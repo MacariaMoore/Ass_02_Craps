@@ -1,13 +1,56 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Scanner;
+import java.util.Random;
 void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+    Scanner in = new Scanner(System.in);
+    Random generator = new Random();
+    String keepRolling;
+
+    do {
+        int Dice1 = generator.nextInt(6) + 1;
+        int Dice2 = generator.nextInt(6) + 1;
+        int sum = Dice1 + Dice2;
+
+        System.out.println("Dice1: " + Dice1);
+        System.out.println("Dice2: " + Dice2);
+        System.out.println("Sum: " + sum);
+
+        if(sum == 2 || sum == 3 || sum == 12){
+            System.out.println("Craps! You lose.");
+        } else if (sum == 7 || sum == 11){
+            System.out.println("Natural, You win!");
+
+        }else {
+            int point = sum;
+            System.out.println("Points is now: "+ point);
+
+            boolean rolling = true;
+
+            while (rolling) {
+
+                Dice1 = generator.nextInt(6) + 1;
+                Dice2 = generator.nextInt(6) + 1;
+                sum = Dice1 + Dice2;
+
+                System.out.println("Dice1: " + Dice1);
+                System.out.println("Dice2: " + Dice2);
+                System.out.println("Sum: " + sum);
+
+                if (sum == point) {
+                    System.out.println("Made point and won!");
+                    rolling = false;
+                }
+                else if (sum == 7) {
+                    System.out.println("Got a seven and lost!");
+                    rolling = false;
+                }
+                else {
+                    System.out.println("Trying for point...");
+                }
+            }
+
+        }
+        System.out.println("Play again (Y/N)?: ");
+        keepRolling = in.next();
+    } while (keepRolling.equalsIgnoreCase("y"));
 }
